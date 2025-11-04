@@ -2,7 +2,6 @@ package com.paddlehub.security;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.keycloak.AuthorizationContext;
 import org.keycloak.common.ClientConnection;
 import org.keycloak.events.Event;
 import org.keycloak.events.EventType;
@@ -14,10 +13,6 @@ import org.keycloak.models.*;
 import org.keycloak.sessions.AuthenticationSessionModel;
 import org.keycloak.urls.UrlType;
 import org.mockito.Mockito;
-
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.net.URI;
 import java.util.Locale;
 
@@ -37,92 +32,28 @@ class IdpEventListenerProviderTest {
         user = mock(UserModel.class);
         event = mock(Event.class);
 
-        // 🔹 Crear un KeycloakContext manual sin usar Mockito
+        // Create a Keycloak context without mockito
         KeycloakContext fakeContext = new KeycloakContext() {
             @Override public RealmModel getRealm() { return realm; }
             @Override public void setRealm(RealmModel realm) {}
-
-            @Override
-            public URI getAuthServerUrl() {
-                return URI.create("http://localhost:8080/auth"); // valor ficticio
-            }
-
-            @Override
-            public String getContextPath() {
-                return "";
-            }
-
-            @Override
-            public KeycloakUriInfo getUri() {
-                return null;
-            }
-
-            @Override
-            public KeycloakUriInfo getUri(UrlType urlType) {
-                return null;
-            }
-
-            @Override
-            public HttpHeaders getRequestHeaders() {
-                return null;
-            }
-
-            @Override
-            public ClientConnection getConnection() {
-                return null;
-            }
-
-            @Override
-            public void setConnection(ClientConnection clientConnection) {}
-
-            @Override
-            public void setHttpRequest(HttpRequest httpRequest) {
-
-            }
-
-            @Override
-            public void setHttpResponse(HttpResponse httpResponse) {
-
-            }
-
-            @Override
-            public ClientModel getClient() {
-                return null;
-            }
-
-            @Override
-            public void setClient(ClientModel client) {}
-
-            @Override
-            public Locale resolveLocale(UserModel userModel) {
-                return Locale.ENGLISH;
-            }
-
-            @Override
-            public AuthenticationSessionModel getAuthenticationSession() {
-                return null;
-            }
-
-            @Override
-            public void setAuthenticationSession(AuthenticationSessionModel authenticationSession) {}
-
-            @Override
-            public HttpRequest getHttpRequest() {
-                return null;
-            }
-
-            @Override
-            public HttpResponse getHttpResponse() {
-                return null;
-            }
-
-            @Override
-            public OrganizationModel getOrganization() {
-                return null;
-            }
-
-            @Override
-            public void setOrganization(OrganizationModel organizationModel) {}
+            @Override public URI getAuthServerUrl() { return URI.create("http://localhost:8080/auth");}
+            @Override public String getContextPath() {return "";}
+            @Override public KeycloakUriInfo getUri() {return null;}
+            @Override public KeycloakUriInfo getUri(UrlType urlType) {return null;}
+            @Override public HttpHeaders getRequestHeaders() {return null;}
+            @Override public ClientConnection getConnection() {return null;}
+            @Override public void setConnection(ClientConnection clientConnection) {}
+            @Override public void setHttpRequest(HttpRequest httpRequest) {}
+            @Override public void setHttpResponse(HttpResponse httpResponse) {}
+            @Override public ClientModel getClient() {return null;}
+            @Override public void setClient(ClientModel client) {}
+            @Override public Locale resolveLocale(UserModel userModel) {return Locale.ENGLISH;}
+            @Override public AuthenticationSessionModel getAuthenticationSession() {return null;}
+            @Override public void setAuthenticationSession(AuthenticationSessionModel authenticationSession) {}
+            @Override public HttpRequest getHttpRequest() {return null;}
+            @Override public HttpResponse getHttpResponse() {return null;}
+            @Override public OrganizationModel getOrganization() {return null;}
+            @Override public void setOrganization(OrganizationModel organizationModel) {}
         };
 
         when(session.getContext()).thenReturn(fakeContext);
