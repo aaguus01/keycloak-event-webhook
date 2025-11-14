@@ -47,8 +47,6 @@ public class IdpEventListenerProvider implements EventListenerProvider {
         this.basicAuthHeader = "Basic " + Base64.getEncoder().encodeToString(credentials.getBytes(StandardCharsets.UTF_8));
         this.syncUrl = syncUrl;
         this.session = session;
-
-        log.infof("[IdpEventListener] Initialized with sync URL: %s", syncUrl);
     }
 
     @Override
